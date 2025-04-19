@@ -1,0 +1,28 @@
+{
+  "name": "e-commerce-api",
+  "version": "1.0.0",
+  "description": "Restful Api using API Protocol",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "e-commerce-api (https://github.com/shahwezahmad/e-commerce-api.git)"
+  },
+  "keywords": [
+    "API",
+    "REST",
+    "E-Commerce"
+  ],
+  "author": "shahwez ahmad",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "multer": "^1.4.5-lts.2",
+    "nodemon": "^3.1.9"
+  }
+}
