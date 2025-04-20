@@ -1,3 +1,4 @@
+import UserModel from "../User/user.model.js"
 
 export default class ProductModel {
 
@@ -16,7 +17,6 @@ export default class ProductModel {
             newProduct.id = products.length + 1;
             let {id, name, desc,price, imgUrl, category, sizes = []} = newProduct 
             products.push( new ProductModel(id, name, desc, parseFloat(price), imgUrl, category, sizes.split(',')))
-            console.log( products[products.length -1])
             return products[products.length -1]
         }
 
@@ -29,11 +29,35 @@ export default class ProductModel {
         }
 
         static getfilterProducts(minPrice, maxPrice, name) {
-          console.warn('--------')
-        
           const filterProducuts = products.filter(product => (product.price >= minPrice || product.price <= maxPrice) && (product.name == name))
-          console.log(filterProducuts)
           return filterProducuts
+        }
+
+        static rateProduct(userId, productId, rating) {
+          // user is there
+          let users = UserModel.getAllUsers()
+           let user = users.find(user => user.id == userId)
+           let productIndex = products.findIndex(product => product.id == productId)
+           
+           console.log(productId)
+           console.log(products)
+           if(!user) return 'No User Found'
+           if(productIndex === -1 ) return 'Product Not Found'
+
+           if(!products[productIndex].ratings) {
+            products[productIndex].ratings = []
+            products[productIndex].ratings.push({userId, rating})
+           }else {
+              const isUserAlreadyRatedIndex = products[productIndex].ratings.findIndex(rating => rating.userId == userId)
+                if(isUserAlreadyRatedIndex !==  -1) {
+                  console.log(products[productIndex].ratings)
+                  products[productIndex].ratings[isUserAlreadyRatedIndex].rating = rating
+                }else products[productIndex].ratings.push({userId,rating})
+           }
+
+           
+          // product is there
+
         }
 }
 

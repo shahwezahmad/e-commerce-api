@@ -24,7 +24,6 @@ export default class Product {
     }
 
     static getfilterProducts(req, res) {
-        console.log(req.query)
         let minPrice = req.query.minPrice
         let maxPrice = req.query.maxPrice
         let name = req.query.name
@@ -43,7 +42,17 @@ export default class Product {
         res.json(ProductModel.getAllProducts())
     }
 
-    static updateStatusOfProduct(req, res ) {
+    static rateProduct(req, res ) {
+        let {userId, productId, rating} = req.query
+        console.log(req.query)
+        let error = ProductModel.rateProduct(userId, productId, rating)
+        if(error) {
+            return res.status(400).json({status:"fail", msg: error})
+        }
 
+        res.status(200).json({
+            status: "success",
+            msg: "Rating successfully added!"
+        })
     }
 }
