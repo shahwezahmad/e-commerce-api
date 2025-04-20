@@ -2,6 +2,7 @@ import express from 'express'
 import ProductRouter from './src/features/products/product.router.js'
 import UserRouter from './src/features/User/user.router.js'
 import { basicAuth } from './src/middleware/basicAuth.middleware.js'
+import { jwtAuth } from './src/middleware/jwtAuth.middleware.js'
 
 const app = express()
 const PORT = process.env.PORT ?? 5000
@@ -10,7 +11,7 @@ const PORT = process.env.PORT ?? 5000
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
-app.use("/api/products",basicAuth, ProductRouter)
+app.use("/api/products", jwtAuth, ProductRouter)
 app.use("/api/users", UserRouter)
 
 app.get('/', (req, res) => {
